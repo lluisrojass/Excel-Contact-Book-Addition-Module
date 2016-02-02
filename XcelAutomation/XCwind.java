@@ -165,8 +165,20 @@ public class XCwind {
 					hazard.setText(errorHandler.findError(65));
 					return;
 				}
-				hazard.setText(errorHandler.findError((excelFile.write
-						(name.getText(), relevence.getText(), email.getText()))));
+				if (errorHandler.findError((excelFile.write
+						(name.getText(), relevence.getText(), email.getText()))).equals("File written Successfully"))
+						{
+							hazard.setForeground(Color.green);
+						}
+				hazard.setText(errorHandler.findError(((excelFile.write
+						(name.getText(), relevence.getText(), email.getText())))));
+				hazard.setForeground(Color.red);
+				long timer = System.currentTimeMillis() / 1000000;
+				while(timer < 2)
+				{
+					
+				}
+				
 			}
 		});
 		
@@ -214,6 +226,13 @@ public class XCwind {
 	
 	public static void main(String[] args) {
 		XCwind x = new XCwind();
+		long timeInSec = System.currentTimeMillis();
+		System.out.println(timeInSec);
+		while(timeInSec < 7)
+		{
+			System.out.println("hello");
+			timeInSec = timeInSec + (System.currentTimeMillis() /1000);
+		}
 	}
 
 }
