@@ -7,6 +7,4 @@ Log entry #1 February 2nd 2015
 	The version available to you on the github works (kinda), but its very much still in it’s pre-alpha stages. There are still 
 	very many unimplemented event listeners and options id like to add, however i will not be working on them at all (for now). 
 	I’ve realized that me not thinking long enough to make this work using the model-view-controller programming approach is just 
-	an excuse not to think, so for the next week or so ill be doing that. Let’s hope I can consistently increment development and 
-	maintain discipline to log everything here. I’d just like to note the amount of mental learning this project has taught me so 
-	far. Cheers. 
+	an excuse not to think, so for the next week or so ill be doing that. Let’s hope I can consistently work on this project and maintain the discipline to log everything here. Cheers. 
