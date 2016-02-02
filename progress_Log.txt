@@ -1,3 +1,12 @@
 Log entry #1 February 2nd 2015
 
-	I know it’s really inconsistent to start the first log entry in the middle of arbitrary product development and most people would either ditch the idea or falsify past logs, yet here we are. looking back on it now i think i was probably too busy to even maintain a log at the time i started this project. yup, that’s my story and I’m sticking to it! No one’s probably ever going to be reading this anyway. It’s probably customary to summarize where I’m at while i write this, so lets get into it. The version available to you on the github works (kinda), but its very much still in it’s pre-alpha stages. There are still very many unimplemented event listeners and options id like to add, however i will not be working on them at all (for now). I’ve realized that me not thinking long enough to make this work using the model-view-controller programming approach is just an excuse not to think, so for the next week or so ill be doing that. Let’s hope I can consistently increment development and maintain discipline to log everything here. I’d just like to note the amount of mental learning this project has taught me so far. Cheers. 
+	I know it’s really inconsistent to start the first log entry in the middle of arbitrary product development and most people 
+	would either ditch the idea or falsify past logs, yet here we are. looking back on it now i think i was probably too busy to 
+	even maintain a log at the time i started this project. yup, that’s my story and I’m sticking to it! No one’s probably ever 
+	going to be reading this anyway. It’s probably customary to summarize where I’m at while i write this, so lets get into it. 
+	The version available to you on the github works (kinda), but its very much still in it’s pre-alpha stages. There are still 
+	very many unimplemented event listeners and options id like to add, however i will not be working on them at all (for now). 
+	I’ve realized that me not thinking long enough to make this work using the model-view-controller programming approach is just 
+	an excuse not to think, so for the next week or so ill be doing that. Let’s hope I can consistently increment development and 
+	maintain discipline to log everything here. I’d just like to note the amount of mental learning this project has taught me so 
+	far. Cheers. 
