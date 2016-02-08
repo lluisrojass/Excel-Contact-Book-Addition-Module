@@ -30,11 +30,11 @@ public class Window extends JFrame {
 	private ErrorHandler errorHandler;
 	JPanel glass;
 	JLabel hazard;
-	JMenuBar mb;
-	JMenu fileMenu;
-	JMenu editMenu;
-	JMenu helpMenu;
-	JMenuItem about;
+	JMenuBar _mb;
+	JMenu _fileMenu;
+	JMenu _editMenu;
+	JMenu _helpMenu;
+	JMenuItem _about;
 	JMenuItem _nameColumn;
 	JLabel nameHeader;
 	JTextField name;
@@ -44,6 +44,9 @@ public class Window extends JFrame {
 	JTextField email;
 	JButton fileButton;
 	JButton liftoff;
+	JMenuItem _relevanceColumn;
+	JMenuItem _emailColumn;
+	
 
 	public Window(Filebase file,ErrorHandler errorHandler) {
 		this.errorHandler = errorHandler;
@@ -65,34 +68,34 @@ public class Window extends JFrame {
 		hazard.setHorizontalAlignment(SwingConstants.CENTER);
 		hazard.setForeground(Color.red);
 		
-		mb = new JMenuBar();
-		fileMenu = new JMenu("File");
-		mb.add(fileMenu);
-		editMenu = new JMenu("Edit");
-		mb.add(editMenu);
-		helpMenu = new JMenu("About");
-		mb.add(helpMenu);
+		_mb = new JMenuBar();
+		_fileMenu = new JMenu("File");
+		_mb.add(_fileMenu);
+		_editMenu = new JMenu("Edit");
+		_mb.add(_editMenu);
+		_helpMenu = new JMenu("About");
+		_mb.add(_helpMenu);
 		
 		
-		about = new JMenuItem("About");
-		helpMenu.add(about);
+		_about = new JMenuItem("About");
+		_helpMenu.add(_about);
 		
 		
 		_nameColumn = new JMenuItem("Edit Name Column.....");
 		
-		editMenu.add(_nameColumn);
+		_editMenu.add(_nameColumn);
 		
 		
-		JMenuItem SpecRel = new JMenuItem("Edit Relevance Column.....");
-		editMenu.add(SpecRel);
+		_relevanceColumn = new JMenuItem("Edit Relevance Column.....");
+		_editMenu.add(_relevanceColumn);
 		
-		JMenuItem SpecEm = new JMenuItem("Edit Email Column.....");
-		editMenu.add(SpecEm);
+		_emailColumn = new JMenuItem("Edit Email Column.....");
+		_editMenu.add(_emailColumn);
 		
 		JMenuItem sheetNumber = new JMenuItem("Edit Sheet Number.....");
-		editMenu.add(sheetNumber);
+		_editMenu.add(sheetNumber);
 		
-		setJMenuBar(mb);
+		setJMenuBar(_mb);
 		
 		nameHeader = new JLabel("Name:");
 		nameHeader.setFont(new Font("futura",Font.PLAIN,20));
@@ -174,6 +177,14 @@ public class Window extends JFrame {
 	public void add_NameColumnActionListener(ActionListener a)
 	{
 		_nameColumn.addActionListener(a);
+	}
+	public void add_EmailColumnActionListener(ActionListener a)
+	{
+		_emailColumn.addActionListener(a);
+	}
+	public void add_RelevanceColumnActionListener(ActionListener a)
+	{
+		_relevanceColumn.addActionListener(a);
 	}
 	
 	private void setWindowPosition(JFrame window, int screen)

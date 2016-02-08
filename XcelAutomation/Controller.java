@@ -24,6 +24,13 @@ public class Controller {
 		file = new Filebase();
 		frame = new Window(file,errorHandler);
 		errorHandler = new ErrorHandler();
+		
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	        	file.close();
+	        }});
+		
+		
 		frame.addFileButtonActionlistener(new ActionListener(){
 			
 
@@ -45,6 +52,8 @@ public class Controller {
 				}
 			}
 		});
+		
+		
 		frame.addLiftoffActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -52,6 +61,7 @@ public class Controller {
 				
 				if (frame.email.getText().equals("") || frame.name.getText().equals("")
 						|| frame.relevance.getText().equals("")) {
+					frame.hazard.setForeground(new Color(228, 230, 0));
 					frame.hazard.setText(errorHandler.findError(36));
 					return;
 				}
@@ -65,18 +75,77 @@ public class Controller {
 				
 			}
 		});
-		frame.addWindowListener(new java.awt.event.WindowAdapter() {
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-	        	file.close();
-	        }});
+		
+		
+
+		
+		
 		frame.add_NameColumnActionListener( 
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) {
 						frame.hazard.setForeground(Color.red);	
+						String choice = JOptionPane.showInputDialog(frame._nameColumn,"", "Enter Desired Column Number", JOptionPane.ERROR_MESSAGE);
+						if (choice != null)
+						{
+							try
+							{
+								frame.hazard.setText(errorHandler.findError(file.setNameIndex(Integer.parseInt(choice.toString()))));
+								frame._nameColumn.setText("Edit Name Column.....(" + file.getNameIndex()+")");
+							}
+							catch (NumberFormatException exception)
+							{
+								frame.hazard.setText("Not a Valid Number");
+							}
+						}
+						
+						
+					}
+			
+				});
+		frame.add_EmailColumnActionListener( 
+				new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e) {
+						frame.hazard.setForeground(Color.red);	
 						String choice = JOptionPane.showInputDialog(frame._nameColumn,"", "Enter Desired Column Number", JOptionPane.PLAIN_MESSAGE);
-						frame.hazard.setText(errorHandler.findError(file.setNameIndex(Integer.parseInt(choice))));
-						frame._nameColumn.setText("Edit Name Column.....(" + file.getNameIndex()+")");
+						if (choice != null)
+						{
+							try
+							{
+								frame.hazard.setText(errorHandler.findError(file.setEmailIndex(Integer.parseInt(choice.toString()))));
+								frame._emailColumn.setText("Edit Email Column.....(" + file.getNameIndex()+")");
+							}
+							catch (NumberFormatException exception)
+							{
+								frame.hazard.setText("Not a Valid Number");
+							}
+						}
+						
+						
+					}
+			
+				});
+		frame.add_RelevanceColumnActionListener( 
+				new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e) {
+						frame.hazard.setForeground(Color.red);	
+						String choice = JOptionPane.showInputDialog(frame._nameColumn,"", "Enter Desired Column Number", JOptionPane.ERROR_MESSAGE);
+						if (choice != null)
+						{
+							try
+							{
+								frame.hazard.setText(errorHandler.findError(file.setRelevanceIndex(Integer.parseInt(choice.toString()))));
+								frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getNameIndex()+")");
+							}
+							catch (NumberFormatException exception)
+							{
+								frame.hazard.setText("Not a Valid Number");
+							}
+						}
+						
+						
 					}
 			
 				});

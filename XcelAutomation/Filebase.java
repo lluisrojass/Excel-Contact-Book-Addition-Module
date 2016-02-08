@@ -28,9 +28,9 @@ public class Filebase {
 	private FileInputStream fis;
 	private FileOutputStream fos;
 	private short Wtype;
-	private int emailIndex;
-	private int relevanceIndex;
-	private int nameIndex;
+    int emailIndex;
+	int relevanceIndex;
+	int nameIndex;
 	
 	public Filebase()
 	{ 
@@ -61,7 +61,6 @@ public class Filebase {
 	{
 		
 		int workingRow = currSheet.getLastRowNum() + 1;
-		
 		currSheet.createRow(workingRow);
 		currSheet.getRow(workingRow).createCell(nameIndex).setCellValue(name);
 		currSheet.getRow(workingRow).createCell(relevanceIndex).setCellValue(relevence);
@@ -108,7 +107,6 @@ public class Filebase {
 		}
 		else
 		{
-			System.out.println("Exception: File not valid");
 			return 34;
 		}
 	}
@@ -152,42 +150,16 @@ public class Filebase {
 	}
 	public int setNameIndex(int index)
 	{
-		if (index == emailIndex)
-		{
-			emailIndex += 1;
-		}
-		if (index == relevanceIndex)
-		{
-			relevanceIndex += 1;
-		}
-		
 		nameIndex = index;
 		return 0;
 	}
 	public int setEmailIndex(int index)
 	{
-		if (index == emailIndex)
-		{
-			emailIndex += 1;
-		}
-		if (index == relevanceIndex)
-		{
-			relevanceIndex += 1;
-		}
-		
 		emailIndex = index;
 		return 0;
 	}
 	public int setRelevanceIndex(int index)
 	{
-		if (index == nameIndex)
-		{
-			 
-		}
-		if (index == relevanceIndex)
-		{
-			relevanceIndex += 1;
-		}
 		relevanceIndex = index;
 		return 0;
 	}
@@ -214,9 +186,6 @@ public class Filebase {
 				return 0;
 			}
 			catch (Exception sheetOutOfIndex) {
-				//sheetOutOfIndex.printStackTrace();
-				
-				System.out.println("Exception thrown: Sheet setting on type 1, sheet might be out of index");
 				return 77;
 			}
 		}
@@ -227,8 +196,6 @@ public class Filebase {
 				return 0;
 			}
 			catch (Exception sheetOutOfIndex) {
-				//sheetOutOfIndex.printStackTrace();
-				System.out.println("Exception thrown: Sheet setting on type 0 sheet might be out of index");
 				return 77;
 			}
 		}
