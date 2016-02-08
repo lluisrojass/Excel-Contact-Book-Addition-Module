@@ -1,6 +1,6 @@
 Log entry #1 February 2nd 2016
 
-	I know it’s really inconsistent to start the first log entry in the middle of arbitrary product development and most people 
+	I know it’s really inconsistent to start the first log entry in the middle of development and most people 
 	would either ditch the idea or falsify past logs, yet here we are. looking back on it now i think i was probably too busy to 
 	even maintain a log at the time i started this project. yup, that’s my story and I’m sticking to it! No one’s probably ever 
 	going to be reading this anyway. It’s probably customary to summarize where I’m at while i write this, so lets get into it. 
