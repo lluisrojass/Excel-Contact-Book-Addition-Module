@@ -3,12 +3,12 @@ package XcelAutomation;
 import java.util.HashMap;
 import java.util.Map;
 
-public class XcErrorHandler {
+public class ErrorHandler {
 
 	private int index;
 	 Map<Integer,String> errorMap;
 	
-	public XcErrorHandler()
+	public ErrorHandler()
 	{
 		errorMap = new HashMap<Integer,String>();
 		index = 0;

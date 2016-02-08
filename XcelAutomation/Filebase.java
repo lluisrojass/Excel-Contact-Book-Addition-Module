@@ -20,27 +20,24 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-public class XcFilebase {
+public class Filebase {
 
 	private Workbook bK; //find out if XSF and HSSF have a parent class
 	private Sheet currSheet;
 	private File XLFile;
 	private FileInputStream fis;
 	private FileOutputStream fos;
-	private Row currRow;
-	private Cell currCell;
 	private short Wtype;
-	
 	private int emailIndex;
 	private int relevanceIndex;
 	private int nameIndex;
 	
-	public XcFilebase()
+	public Filebase()
 	{ 
 		Wtype = -1;
 	}
 		
-	public XcFilebase(String pathname) throws IOException
+	public Filebase(String pathname) throws IOException
 	{
 		setSourceFile(pathname);
 	}

@@ -24,33 +24,30 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
-public class XCwind extends JFrame {
+public class Window extends JFrame {
 	
-	XcFilebase excelFile;
-	XcErrorHandler errorHandler;
+	private Filebase file;
+	private ErrorHandler errorHandler;
 	JPanel glass;
-	JEditorPane pane;
 	JLabel hazard;
 	JMenuBar mb;
 	JMenu fileMenu;
 	JMenu editMenu;
 	JMenu helpMenu;
 	JMenuItem about;
-	JMenuItem SpecName;
+	JMenuItem _nameColumn;
 	JLabel nameHeader;
 	JTextField name;
 	JLabel relHeader;
-	JTextField relevence;
+	JTextField relevance;
 	JLabel emailHeader;
 	JTextField email;
 	JButton fileButton;
 	JButton liftoff;
-	
-	
-	
-	public XCwind() {
-		excelFile = new XcFilebase();
-		errorHandler = new XcErrorHandler();
+
+	public Window(Filebase file,ErrorHandler errorHandler) {
+		this.errorHandler = errorHandler;
+		this.file = file;
 		initialize();
 	}
 	
@@ -58,7 +55,7 @@ public class XCwind extends JFrame {
 	{
 		glass = new JPanel();
 		glass.setBackground(Color.WHITE);
-		JFileChooser fc = new JFileChooser();
+		
 		
 		
 		setResizable(false);
@@ -81,28 +78,18 @@ public class XCwind extends JFrame {
 		helpMenu.add(about);
 		
 		
-		SpecName = new JMenuItem("Edit Name Column.....(" + excelFile.getNameIndex()+")");
-		SpecName.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e) {
-				String choice = JOptionPane.showInputDialog(SpecName,"", "Enter Desired Column Number", JOptionPane.PLAIN_MESSAGE);
-				hazard.setText(errorHandler.findError(excelFile.setNameIndex(Integer.parseInt(choice))));
-				SpecName.setText("Edit Name Column.....(" + excelFile.getNameIndex()+")");
-			}
-	
-		});
-
+		_nameColumn = new JMenuItem("Edit Name Column.....");
 		
-		editMenu.add(SpecName);
+		editMenu.add(_nameColumn);
 		
 		
-		JMenuItem SpecRel = new JMenuItem("Edit Relevance Column....");
+		JMenuItem SpecRel = new JMenuItem("Edit Relevance Column.....");
 		editMenu.add(SpecRel);
 		
-		JMenuItem SpecEm = new JMenuItem("Edit Email Column....(" + excelFile.getEmailIndex()+")");
+		JMenuItem SpecEm = new JMenuItem("Edit Email Column.....");
 		editMenu.add(SpecEm);
 		
-		JMenuItem sheetNumber = new JMenuItem("Edit Sheet Number....");
+		JMenuItem sheetNumber = new JMenuItem("Edit Sheet Number.....");
 		editMenu.add(sheetNumber);
 		
 		setJMenuBar(mb);
@@ -123,10 +110,10 @@ public class XCwind extends JFrame {
 		relHeader.setHorizontalTextPosition(SwingConstants.CENTER);
 		glass.add(relHeader);
 		
-		relevence = new JTextField();
-		relevence.setPreferredSize(new Dimension(250,20));
-		relevence.setFont(new Font("futura",Font.PLAIN,12));
-		glass.add(relevence);
+		relevance = new JTextField();
+		relevance.setPreferredSize(new Dimension(250,20));
+		relevance.setFont(new Font("futura",Font.PLAIN,12));
+		glass.add(relevance);
 		
 		emailHeader = new JLabel("Email:");
 		emailHeader.setFont(new Font("futura",Font.PLAIN,20));
@@ -143,22 +130,6 @@ public class XCwind extends JFrame {
 		fileButton = new JButton("Choose File");
 		fileButton.setFont(new Font("futura",Font.PLAIN,10));
 		fileButton.setPreferredSize(new Dimension(250,30));
-		fileButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {	
-				fc.setCurrentDirectory(null);
-				fc.setDialogTitle("Please choose an Excel file");
-				fc.setMultiSelectionEnabled(false);
-				if (fc.showOpenDialog(fileButton) == JFileChooser.APPROVE_OPTION) {	 }
-				if(!(fc.getSelectedFile() == null)) { 
-					hazard.setText(errorHandler.findError((excelFile
-							.setSourceFile(fc.getSelectedFile().getAbsolutePath()))));
-				}
-				else
-				{
-					hazard.setText(errorHandler.findError(119));
-				}
-			}
-		});
 		
 		glass.add(fileButton);
 		
@@ -167,42 +138,10 @@ public class XCwind extends JFrame {
 		liftoff.setHorizontalAlignment(SwingConstants.CENTER);
 		liftoff.setPreferredSize(new Dimension(80,30));
 		glass.add(liftoff);
-		liftoff.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				if (email.getText().equals("") || name.getText().equals("")
-						|| relevence.getText().equals("")) {
-					hazard.setText(errorHandler.findError(36));
-					return;
-				}
-				else if (excelFile.isFileNull()) {
-					hazard.setText(errorHandler.findError(65));
-					return;
-				}
-				if (errorHandler.findError((excelFile.write
-						(name.getText(), relevence.getText(), email.getText()))).equals("File written Successfully"))
-						{
-							hazard.setForeground(Color.green);
-						}
-				hazard.setText(errorHandler.findError(((excelFile.write
-						(name.getText(), relevence.getText(), email.getText())))));
-				hazard.setForeground(Color.red);
-				long timer = System.currentTimeMillis() / 1000000;
-				while(timer < 2)
-				{
-					
-				}
-				
-			}
-		});
 		
 		glass.add(hazard);
 		
-		addWindowListener(new java.awt.event.WindowAdapter() {
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        	excelFile.close();
-		        }
-		});
+		
 		    
 		setWindowPosition(this,2);
 		setPreferredSize(new Dimension(400,215));
@@ -210,6 +149,31 @@ public class XCwind extends JFrame {
 		add(glass);
 		pack();
 		setVisible(true);
+	}
+	
+	public void addNameActionlistener(ActionListener a)
+	{
+		name.addActionListener(a);
+	}
+	public void addEmailActionlistener(ActionListener a)
+	{
+		email.addActionListener(a);
+	}
+	public void addFileButtonActionlistener(ActionListener a)
+	{
+		fileButton.addActionListener(a);
+	}
+	public void addrelevancelistener(ActionListener a)
+	{
+		relevance.addActionListener(a);
+	}
+	public void addLiftoffActionListener(ActionListener a)
+	{
+		liftoff.addActionListener(a);
+	}
+	public void add_NameColumnActionListener(ActionListener a)
+	{
+		_nameColumn.addActionListener(a);
 	}
 	
 	private void setWindowPosition(JFrame window, int screen)
@@ -236,10 +200,5 @@ public class XCwind extends JFrame {
 	    windowPosX = ((screenX - window.getWidth())  / 2) + topLeftX;
 	    windowPosY = ((screenY - window.getHeight()) / 2) + topLeftY;
 	    window.setLocation(windowPosX, windowPosY);
-	}
-	
-	public static void main(String[] args)
-	{
-		XCwind c =  new XCwind();
 	}
 }
