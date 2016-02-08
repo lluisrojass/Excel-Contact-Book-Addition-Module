@@ -1,6 +1,6 @@
-Log entry #1 February 2nd 2015
+Log entry #1 February 2nd 2016
 
-	I know it’s really inconsistent to start the first log entry in the middle of arbitrary product development and most people 
+	I know it’s really inconsistent to start the first log entry in the middle of development and most people 
 	would either ditch the idea or falsify past logs, yet here we are. looking back on it now i think i was probably too busy to 
 	even maintain a log at the time i started this project. yup, that’s my story and I’m sticking to it! No one’s probably ever 
 	going to be reading this anyway. It’s probably customary to summarize where I’m at while i write this, so lets get into it. 
@@ -9,3 +9,7 @@ Log entry #1 February 2nd 2015
 	I’ve realized that me not thinking long enough to make this work using the model-view-controller programming approach is just 
 	an excuse not to think, so for the next week or so ill be doing that. Let’s hope I can consistently work on this
 	project and maintain the discipline to log everything here. Cheers. 
+	
+Log entry #2 February 8th 2016
+
+	Controller works. Now working on cosmetic upgrades and sanding down the logic. filenames also changed for less confusion. 
