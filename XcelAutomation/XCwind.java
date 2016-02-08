@@ -24,10 +24,29 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
-public class XCwind {
+public class XCwind extends JFrame {
 	
-	private XcFilebase excelFile;
-	private XcErrorHandler errorHandler;
+	XcFilebase excelFile;
+	XcErrorHandler errorHandler;
+	JPanel glass;
+	JEditorPane pane;
+	JLabel hazard;
+	JMenuBar mb;
+	JMenu fileMenu;
+	JMenu editMenu;
+	JMenu helpMenu;
+	JMenuItem about;
+	JMenuItem SpecName;
+	JLabel nameHeader;
+	JTextField name;
+	JLabel relHeader;
+	JTextField relevence;
+	JLabel emailHeader;
+	JTextField email;
+	JButton fileButton;
+	JButton liftoff;
+	
+	
 	
 	public XCwind() {
 		excelFile = new XcFilebase();
@@ -37,37 +56,32 @@ public class XCwind {
 	
 	private void initialize()
 	{
-		JFrame frame = new JFrame();
-		JPanel glass = new JPanel();
+		glass = new JPanel();
 		glass.setBackground(Color.WHITE);
 		JFileChooser fc = new JFileChooser();
 		
-		JEditorPane pane = new JEditorPane();
-		pane.setText("<html><font color=\"red\">hello world!</font></html>");
-
-
-		frame.getContentPane().setLayout( new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
-		frame.setResizable(false);
 		
-		JLabel hazard = new JLabel();
+		setResizable(false);
+		
+		hazard = new JLabel();
 		hazard.setPreferredSize(new Dimension(400,25));
 		hazard.setHorizontalAlignment(SwingConstants.CENTER);
 		hazard.setForeground(Color.red);
 		
-		JMenuBar mb = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
+		mb = new JMenuBar();
+		fileMenu = new JMenu("File");
 		mb.add(fileMenu);
-		JMenu editMenu = new JMenu("Edit");
+		editMenu = new JMenu("Edit");
 		mb.add(editMenu);
-		JMenu helpMenu = new JMenu("About");
+		helpMenu = new JMenu("About");
 		mb.add(helpMenu);
 		
 		
-		JMenuItem about = new JMenuItem("About");
+		about = new JMenuItem("About");
 		helpMenu.add(about);
 		
 		
-		JMenuItem SpecName = new JMenuItem("Edit Name Column.....(" + excelFile.getNameIndex()+")");
+		SpecName = new JMenuItem("Edit Name Column.....(" + excelFile.getNameIndex()+")");
 		SpecName.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +96,7 @@ public class XCwind {
 		editMenu.add(SpecName);
 		
 		
-		JMenuItem SpecRel = new JMenuItem("Edit Relevance Column....(" + excelFile.getRelevanceIndex()+")");
+		JMenuItem SpecRel = new JMenuItem("Edit Relevance Column....");
 		editMenu.add(SpecRel);
 		
 		JMenuItem SpecEm = new JMenuItem("Edit Email Column....(" + excelFile.getEmailIndex()+")");
@@ -91,42 +105,42 @@ public class XCwind {
 		JMenuItem sheetNumber = new JMenuItem("Edit Sheet Number....");
 		editMenu.add(sheetNumber);
 		
-		frame.setJMenuBar(mb);
+		setJMenuBar(mb);
 		
-		JLabel nameHeader = new JLabel("Name:");
+		nameHeader = new JLabel("Name:");
 		nameHeader.setFont(new Font("futura",Font.PLAIN,20));
 		nameHeader.setHorizontalTextPosition(SwingConstants.CENTER);
 		glass.add(nameHeader);
 		
 		
-		JTextField name = new JTextField();
+		name = new JTextField();
 		name.setPreferredSize(new Dimension(303,20));
 		name.setFont(new Font("futura",Font.PLAIN,12));
 		glass.add(name);
 		
-		JLabel relHeader = new JLabel("Relationship:");
+		relHeader = new JLabel("Relationship:");
 		relHeader.setFont(new Font("futura",Font.PLAIN,20));
 		relHeader.setHorizontalTextPosition(SwingConstants.CENTER);
 		glass.add(relHeader);
 		
-		JTextField relevence = new JTextField();
+		relevence = new JTextField();
 		relevence.setPreferredSize(new Dimension(250,20));
 		relevence.setFont(new Font("futura",Font.PLAIN,12));
 		glass.add(relevence);
 		
-		JLabel emailHeader = new JLabel("Email:");
+		emailHeader = new JLabel("Email:");
 		emailHeader.setFont(new Font("futura",Font.PLAIN,20));
 		emailHeader.setHorizontalTextPosition(SwingConstants.CENTER);
 		glass.add(emailHeader);
 		
-		JTextField email = new JTextField();
+		email = new JTextField();
 		email.setFont(new Font("futura",Font.PLAIN,12));
 		email.setPreferredSize(new Dimension(310,20));
 		glass.add(email);
 		
 		
 		
-		JButton fileButton = new JButton("Choose File");
+		fileButton = new JButton("Choose File");
 		fileButton.setFont(new Font("futura",Font.PLAIN,10));
 		fileButton.setPreferredSize(new Dimension(250,30));
 		fileButton.addActionListener(new ActionListener(){
@@ -148,7 +162,7 @@ public class XCwind {
 		
 		glass.add(fileButton);
 		
-		JButton liftoff = new JButton("Apply");
+		liftoff = new JButton("Apply");
 		liftoff.setFont(new Font("futura",Font.PLAIN,10));
 		liftoff.setHorizontalAlignment(SwingConstants.CENTER);
 		liftoff.setPreferredSize(new Dimension(80,30));
@@ -184,18 +198,18 @@ public class XCwind {
 		
 		glass.add(hazard);
 		
-		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		addWindowListener(new java.awt.event.WindowAdapter() {
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 		        	excelFile.close();
 		        }
 		});
 		    
-		setWindowPosition(frame,2);
-		frame.setPreferredSize(new Dimension(400,215));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(glass);
-		frame.pack();
-		frame.setVisible(true);
+		setWindowPosition(this,2);
+		setPreferredSize(new Dimension(400,215));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		add(glass);
+		pack();
+		setVisible(true);
 	}
 	
 	private void setWindowPosition(JFrame window, int screen)
@@ -224,15 +238,8 @@ public class XCwind {
 	    window.setLocation(windowPosX, windowPosY);
 	}
 	
-	public static void main(String[] args) {
-		XCwind x = new XCwind();
-		long timeInSec = System.currentTimeMillis();
-		System.out.println(timeInSec);
-		while(timeInSec < 7)
-		{
-			System.out.println("hello");
-			timeInSec = timeInSec + (System.currentTimeMillis() /1000);
-		}
+	public static void main(String[] args)
+	{
+		XCwind c =  new XCwind();
 	}
-
 }
