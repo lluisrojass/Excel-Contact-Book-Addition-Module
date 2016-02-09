@@ -28,13 +28,16 @@ public class Filebase {
 	private FileInputStream fis;
 	private FileOutputStream fos;
 	private short Wtype;
-    int emailIndex;
-	int relevanceIndex;
-	int nameIndex;
+    private int emailIndex;
+	private int relevanceIndex;
+	private int nameIndex;
 	
 	public Filebase()
 	{ 
 		Wtype = -1;
+		nameIndex = 0;
+		relevanceIndex = 1;
+		emailIndex = 2;
 	}
 		
 	public Filebase(String pathname) throws IOException
@@ -63,8 +66,11 @@ public class Filebase {
 		int workingRow = currSheet.getLastRowNum() + 1;
 		currSheet.createRow(workingRow);
 		currSheet.getRow(workingRow).createCell(nameIndex).setCellValue(name);
+		System.out.println(nameIndex);
 		currSheet.getRow(workingRow).createCell(relevanceIndex).setCellValue(relevence);
+		System.out.println(relevanceIndex);
 		currSheet.getRow(workingRow).createCell(emailIndex).setCellValue(email);
+		System.out.println(emailIndex);
 		
 		try{
 			fos = new FileOutputStream(XLFile); 
@@ -119,9 +125,6 @@ public class Filebase {
 	
 	public void initializeSemantics()
 	{
-		emailIndex = 2;
-		nameIndex = 0;
-		relevanceIndex = 1;
 		
 		if (Wtype == 1)
 		{
@@ -138,7 +141,6 @@ public class Filebase {
 			System.out.println("Error, initializing semantics");
 			return;
 		}
-		
 	}
 	public boolean isRowEmpty(Row row) {
 	    for (int c = row.getFirstCellNum(); c < row.getLastCellNum(); c++) {
@@ -175,8 +177,6 @@ public class Filebase {
 	{
 		return emailIndex;
 	}
-	
-	
 	
 	public double setSheet(int index)
 	{

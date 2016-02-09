@@ -3,16 +3,9 @@ package XcelAutomation;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Controller {
 	Window frame;
@@ -84,72 +77,56 @@ public class Controller {
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) {
-						frame.hazard.setForeground(Color.red);	
-						String choice = JOptionPane.showInputDialog(frame._nameColumn,"", "Enter Desired Column Number", JOptionPane.ERROR_MESSAGE);
-						if (choice != null)
+						try
 						{
-							try
-							{
-								frame.hazard.setText(errorHandler.findError(file.setNameIndex(Integer.parseInt(choice.toString()))));
-								frame._nameColumn.setText("Edit Name Column.....(" + file.getNameIndex()+")");
-							}
-							catch (NumberFormatException exception)
-							{
-								frame.hazard.setText("Not a Valid Number");
-							}
+							frame.hazard.setForeground(Color.red);	
+							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._nameColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
+							frame.hazard.setText(errorHandler.findError(file.setNameIndex(choice)));
+							frame._nameColumn.setText("Edit Name Column.....(" + file.getNameIndex()+")");			
 						}
-						
-						
+						catch(NullPointerException e2) { } catch (NumberFormatException e3)
+						{
+							frame.hazard.setText("Not a valid Number");	
+						}
 					}
-			
 				});
+		
 		frame.add_EmailColumnActionListener( 
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) {
-						frame.hazard.setForeground(Color.red);	
-						String choice = JOptionPane.showInputDialog(frame._nameColumn,"", "Enter Desired Column Number", JOptionPane.PLAIN_MESSAGE);
-						if (choice != null)
+						try
 						{
-							try
-							{
-								frame.hazard.setText(errorHandler.findError(file.setEmailIndex(Integer.parseInt(choice.toString()))));
-								frame._emailColumn.setText("Edit Email Column.....(" + file.getNameIndex()+")");
-							}
-							catch (NumberFormatException exception)
-							{
-								frame.hazard.setText("Not a Valid Number");
-							}
+							frame.hazard.setForeground(Color.red);	
+							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._emailColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));	
+							frame.hazard.setText(errorHandler.findError(file.setEmailIndex(choice)));
+							frame._emailColumn.setText("Edit Email Column.....(" + file.getEmailIndex() + ")");			
 						}
-						
-						
+						catch(NullPointerException e2) { 
+							frame.hazard.setText("Unkown Error");
+						} catch (NumberFormatException e3)
+						{
+							frame.hazard.setText("Not a valid Number");	
+						}
 					}
-			
 				});
 		frame.add_RelevanceColumnActionListener( 
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) {
-						frame.hazard.setForeground(Color.red);	
-						String choice = JOptionPane.showInputDialog(frame._nameColumn,"", "Enter Desired Column Number", JOptionPane.ERROR_MESSAGE);
-						if (choice != null)
+						try
 						{
-							try
-							{
-								frame.hazard.setText(errorHandler.findError(file.setRelevanceIndex(Integer.parseInt(choice.toString()))));
-								frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getNameIndex()+")");
-							}
-							catch (NumberFormatException exception)
-							{
-								frame.hazard.setText("Not a Valid Number");
-							}
+							frame.hazard.setForeground(Color.red);	
+							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._relevanceColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
+							frame.hazard.setText(errorHandler.findError(file.setRelevanceIndex(choice)));
+							frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getRelevanceIndex()+")");			
 						}
-						
-						
+						catch(NullPointerException e2) { } catch (NumberFormatException e3)
+						{
+							frame.hazard.setText("Not a valid Number");	
+						}
 					}
-			
 				});
-		
 	}
 	public void setVisible()
 	{
