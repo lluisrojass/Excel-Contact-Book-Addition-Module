@@ -1,4 +1,13 @@
 # Excel Contact Book Module
 
-Code for a Java Swing Graphical User Interface Module which automates the addition of a person into a Microsoft Excel based Contact book. This Program implements the Apache POI (https://en.wikipedia.org/wiki/Apache_POI) API to preform operations on the file. Program also contains a working error-handling class keeping Exceptions and possible quagmires at bay. I'm aware that not much can be said about the purpose for this program, truth be told I thought this would be a great project for me because I can learn a good bit and also automate my contact book. 
+A Java Swing Widget-Toolkit implementing GUI Module which automates the addition of an entry into a Microsoft Excel based Contact book. In order to acces and manipulate Microsoft OLE 2 Compound Document formatted and Open Office XML standard Files, this program implements the Java Apache [POI API Library](https://poi.apache.org/). Besides the Refrence Library Files, you will find four files: a Controller, a Window, and a Filebase, and an Error Handler, all of which are linked and talk to each other like so: .
+![alt tag](http://builtbyluis.com/images/MultiExcel.png)
+ 
+
+
+
+
+
+
+
 
