@@ -166,6 +166,11 @@ public class Window extends JFrame {
 	{
 		_editFile.addActionListener(a);
 	}
+	public void add_AboutActionListener(ActionListener a)
+	{
+		_about.addActionListener(a);
+	}
+	
 	public void addEmailActionlistener(ActionListener a)
 	{
 		email.addActionListener(a);

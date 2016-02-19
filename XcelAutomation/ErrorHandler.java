@@ -28,8 +28,8 @@ public class ErrorHandler {
 		errorMap.put(65,"No File Chosen");
 		errorMap.put(6,"File Successfully Written");
 		errorMap.put(78, "Error Writing File");
-		errorMap.put(26, "File Not Yet Selected");
-		errorMap.put(33,"Invalid Input");
+		errorMap.put(26, "No File Selected");
+		errorMap.put(33,"Input Invalid");
 	}
 	public String findError(int index) {
 		return errorMap.get(index);

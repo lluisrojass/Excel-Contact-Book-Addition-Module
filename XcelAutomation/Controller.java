@@ -3,6 +3,9 @@ package XcelAutomation;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -76,8 +79,12 @@ public class Controller {
 						{
 							frame.hazard.setForeground(Color.red);	
 							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._nameColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
-							frame.hazard.setText(errorHandler.findError(file.setNameIndex(choice)));
-							frame._nameColumn.setText("Edit Name Column.....(" + file.getNameIndex()+")");			
+							String errorOutcome = errorHandler.findError(file.setNameIndex(choice));
+							if (errorOutcome.equals(""))
+							{
+								frame._nameColumn.setText("Edit Name Column.....(" + file.getNameIndex()+")");
+							}
+							frame.hazard.setText(errorOutcome);
 						}
 						catch(NullPointerException e2) { } catch (NumberFormatException e3)
 						{
@@ -97,7 +104,7 @@ public class Controller {
 							String errorOutcome = errorHandler.findError(file.setEmailIndex(choice));
 							if (errorOutcome.equals(""))
 							{
-								frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getRelevanceIndex()+")");
+								frame._emailColumn.setText("Edit Email Column.....(" + file.getEmailIndex()+")");
 							}
 							frame.hazard.setText(errorOutcome);
 						}
@@ -129,6 +136,7 @@ public class Controller {
 						}
 					}
 				});
+		
 		frame.add_EditFileActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e)
 		{
@@ -157,9 +165,13 @@ public class Controller {
 				{
 					frame.hazard.setForeground(Color.red);	
 					int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._sheetNumber,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
-					frame.hazard.setText(errorHandler.findError(file.setSheet(choice)));
-					
-					frame._sheetNumber.setText("Edit Sheet Number.....(" + file.getSheetIndex()+")");			
+					String outcome = errorHandler.findError(file.setSheet(choice));
+					if (outcome.equals(""))
+					{
+						frame._sheetNumber.setText("Edit Sheet Number.....(" + file.getSheetIndex()+")");		
+					}
+					frame.hazard.setText(outcome);
+						
 				}
 				catch(NullPointerException e2) { } catch (NumberFormatException e3)
 				{
@@ -167,6 +179,20 @@ public class Controller {
 				}
 			}
 		});
+		
+		frame.add_AboutActionListener(new ActionListener()
+				{
+					
+					public void actionPerformed(ActionEvent e) {
+						try {
+							java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/lluisrojass/ExcelContactBook"));
+						} catch (IOException | URISyntaxException e1) {
+							
+							frame.hazard.setText("Issues accessing the internet");
+						}
+						
+					}
+				});
 		
 		
 		
