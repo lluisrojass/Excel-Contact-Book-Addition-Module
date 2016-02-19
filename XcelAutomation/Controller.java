@@ -182,7 +182,6 @@ public class Controller {
 		
 		frame.add_AboutActionListener(new ActionListener()
 				{
-					
 					public void actionPerformed(ActionEvent e) {
 						try {
 							java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/lluisrojass/ExcelContactBook"));

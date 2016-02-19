@@ -66,6 +66,7 @@ public class Window extends JFrame {
 		hazard.setPreferredSize(new Dimension(400,25));
 		hazard.setHorizontalAlignment(SwingConstants.CENTER);
 		hazard.setForeground(Color.red);
+		hazard.setText("Reminder : File MUST be closed");
 		
 		_mb = new JMenuBar();
 		_fileMenu = new JMenu("File");
