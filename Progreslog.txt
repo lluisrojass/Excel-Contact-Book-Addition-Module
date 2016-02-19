@@ -13,3 +13,6 @@ Log entry #1 February 2nd 2016
 Log entry #2 February 8th 2016
 
 	Controller works. Now working on cosmetic upgrades and sanding down the logic. filenames also changed for less confusion. 
+
+Log entry #2 February 18th 2016 
+	
