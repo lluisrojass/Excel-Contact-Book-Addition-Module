@@ -16,18 +16,20 @@ public class ErrorHandler {
 	}
 	public void initializeErrors() {
 		errorMap.put(0,"");
-		errorMap.put(45, "Issue encountered with "
-				+ "initially accessing your .xls file, please take measures to reassure file stability.");
+		errorMap.put(45, "Issue Encountered With "
+				+ "Initially Accessing Your .xls File, Please Reassure File Stability.");
 		errorMap.put(15, "Issue encountered with "
-				+ "initially accessing your .xlsx file, please take measures to reassure file stability.");
-		errorMap.put(34, "Careful, file chosen is not an .xls or .xlsx EXCEL file");
-		errorMap.put(78,"Unkown Error editing file to compensate for custom sheet number");
-		errorMap.put(77, "Sheet out of index");
-		errorMap.put(119,"Careful, no file Chosen");
-		errorMap.put(36, "Not all text fields are filled");
+				+ "Initially accessing your .xlsx File, File May Be Unstabable.");
+		errorMap.put(34, "File Chosen Is Not An .xls or .xlsx Microsoft file");
+		errorMap.put(78, "Unkown Error Editing File To Compensate For Custom Sheet Number");
+		errorMap.put(77, "Sheet Out Of Index");
+		errorMap.put(119,"Careful, No File Chosen");
+		errorMap.put(36, "Not All Text Fields Are Filled");
 		errorMap.put(65,"No File Chosen");
-		errorMap.put(6,"File written Successfully");
+		errorMap.put(6,"File Successfully Written");
 		errorMap.put(78, "Error Writing File");
+		errorMap.put(26, "File Not Yet Selected");
+		errorMap.put(33,"Invalid Input");
 	}
 	public String findError(int index) {
 		return errorMap.get(index);

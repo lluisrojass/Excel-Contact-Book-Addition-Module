@@ -31,6 +31,7 @@ public class Filebase {
     private int emailIndex;
 	private int relevanceIndex;
 	private int nameIndex;
+	private int currSheetIndex;
 	
 	public Filebase()
 	{ 
@@ -152,16 +153,28 @@ public class Filebase {
 	}
 	public int setNameIndex(int index)
 	{
+		if (index < 0)
+		{
+			return 33;
+		}
 		nameIndex = index;
 		return 0;
 	}
 	public int setEmailIndex(int index)
 	{
+		if (index < 0)
+		{
+			return 33;
+		}
 		emailIndex = index;
 		return 0;
 	}
 	public int setRelevanceIndex(int index)
 	{
+		if (index < 0)
+		{
+			return 33;
+		}
 		relevanceIndex = index;
 		return 0;
 	}
@@ -177,11 +190,16 @@ public class Filebase {
 	{
 		return emailIndex;
 	}
+	public int getSheetIndex()
+	{
+		return currSheetIndex;
+	}
 	
-	public double setSheet(int index)
+	public int setSheet(int index)
 	{
 		if (Wtype == 1) {
 			try {
+				currSheetIndex = index;
 				currSheet = bK.getSheetAt(index);
 				return 0;
 			}
@@ -192,6 +210,8 @@ public class Filebase {
 		else if (Wtype == 0)
 		{
 			try {
+
+				currSheetIndex = index;
 				currSheet = bK.getSheetAt(index);
 				return 0;
 			}
@@ -199,7 +219,6 @@ public class Filebase {
 				return 77;
 			}
 		}
-		System.out.print("Unkown error when setting custom sheet");
-		return 78;
+		return 26;
 	}
 }

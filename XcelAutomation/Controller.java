@@ -21,13 +21,10 @@ public class Controller {
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 	        	file.close();
-	        }});
-		
+	}});
 		
 		frame.addFileButtonActionlistener(new ActionListener(){
-			
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.hazard.setForeground(Color.red);	
 				JFileChooser fc = new JFileChooser();
@@ -70,8 +67,6 @@ public class Controller {
 		});
 		
 		
-
-		
 		
 		frame.add_NameColumnActionListener( 
 				new ActionListener()
@@ -89,7 +84,7 @@ public class Controller {
 							frame.hazard.setText("Not a valid Number");	
 						}
 					}
-				});
+		});
 		
 		frame.add_EmailColumnActionListener( 
 				new ActionListener()
@@ -98,9 +93,13 @@ public class Controller {
 						try
 						{
 							frame.hazard.setForeground(Color.red);	
-							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._emailColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));	
-							frame.hazard.setText(errorHandler.findError(file.setEmailIndex(choice)));
-							frame._emailColumn.setText("Edit Email Column.....(" + file.getEmailIndex() + ")");			
+							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._emailColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));				
+							String errorOutcome = errorHandler.findError(file.setEmailIndex(choice));
+							if (errorOutcome.equals(""))
+							{
+								frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getRelevanceIndex()+")");
+							}
+							frame.hazard.setText(errorOutcome);
 						}
 						catch(NullPointerException e2) { 
 							frame.hazard.setText("Unkown Error");
@@ -109,17 +108,20 @@ public class Controller {
 							frame.hazard.setText("Not a valid Number");	
 						}
 					}
-				});
-		frame.add_RelevanceColumnActionListener( 
-				new ActionListener()
-				{
+		});
+		
+		frame.add_RelevanceColumnActionListener( new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try
 						{
 							frame.hazard.setForeground(Color.red);	
 							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._relevanceColumn,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
-							frame.hazard.setText(errorHandler.findError(file.setRelevanceIndex(choice)));
-							frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getRelevanceIndex()+")");			
+							String errorOutcome = errorHandler.findError(file.setRelevanceIndex(choice));
+							if (errorOutcome.equals(""))
+							{
+								frame._relevanceColumn.setText("Edit Relevance Column.....(" + file.getRelevanceIndex()+")");
+							}
+							frame.hazard.setText(errorOutcome);
 						}
 						catch(NullPointerException e2) { } catch (NumberFormatException e3)
 						{
@@ -127,6 +129,48 @@ public class Controller {
 						}
 					}
 				});
+		frame.add_EditFileActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e)
+		{
+			frame.hazard.setForeground(Color.red);	
+			JFileChooser fc = new JFileChooser();
+			
+			fc.setCurrentDirectory(null);
+			fc.setDialogTitle("Please choose an Excel file");
+			fc.setMultiSelectionEnabled(false);
+			
+			if (fc.showOpenDialog(frame.fileButton) == JFileChooser.APPROVE_OPTION) {	 }
+			if(!(fc.getSelectedFile() == null)) { 
+				frame.hazard.setText(errorHandler.findError((file
+						.setSourceFile(fc.getSelectedFile().getAbsolutePath()))));
+			}
+			else
+			{
+				frame.hazard.setText(errorHandler.findError(119));
+			}
+		}});
+		
+		frame.add_SheetNumberActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					frame.hazard.setForeground(Color.red);	
+					int choice = Integer.parseInt(JOptionPane.showInputDialog(frame._sheetNumber,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
+					frame.hazard.setText(errorHandler.findError(file.setSheet(choice)));
+					
+					frame._sheetNumber.setText("Edit Sheet Number.....(" + file.getSheetIndex()+")");			
+				}
+				catch(NullPointerException e2) { } catch (NumberFormatException e3)
+				{
+					frame.hazard.setText("Not a Valid Input");	
+				}
+			}
+		});
+		
+		
+		
+		
 	}
 	public void setVisible()
 	{

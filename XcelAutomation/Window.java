@@ -46,11 +46,12 @@ public class Window extends JFrame {
 	JButton liftoff;
 	JMenuItem _relevanceColumn;
 	JMenuItem _emailColumn;
+	JMenuItem _editFile;
+	JMenuItem _sheetNumber;
 	
 
 	public Window(Filebase file,ErrorHandler errorHandler) {
 		this.errorHandler = errorHandler;
-		this.file = file;
 		initialize();
 	}
 	
@@ -58,8 +59,6 @@ public class Window extends JFrame {
 	{
 		glass = new JPanel();
 		glass.setBackground(Color.WHITE);
-		
-		
 		
 		setResizable(false);
 		
@@ -76,14 +75,15 @@ public class Window extends JFrame {
 		_helpMenu = new JMenu("About");
 		_mb.add(_helpMenu);
 		
+		_editFile = new JMenuItem("Open File");
+		_fileMenu.add(_editFile);
 		
 		_about = new JMenuItem("About");
 		_helpMenu.add(_about);
 		
-		
 		_nameColumn = new JMenuItem("Edit Name Column.....");
-		
 		_editMenu.add(_nameColumn);
+		
 		
 		
 		_relevanceColumn = new JMenuItem("Edit Relevance Column.....");
@@ -92,8 +92,8 @@ public class Window extends JFrame {
 		_emailColumn = new JMenuItem("Edit Email Column.....");
 		_editMenu.add(_emailColumn);
 		
-		JMenuItem sheetNumber = new JMenuItem("Edit Sheet Number.....");
-		_editMenu.add(sheetNumber);
+		_sheetNumber = new JMenuItem("Edit Sheet Number.....");
+		_editMenu.add(_sheetNumber);
 		
 		setJMenuBar(_mb);
 		
@@ -157,6 +157,14 @@ public class Window extends JFrame {
 	public void addNameActionlistener(ActionListener a)
 	{
 		name.addActionListener(a);
+	}
+	public void add_SheetNumberActionListener(ActionListener a)
+	{
+		_sheetNumber.addActionListener(a);
+	}
+	public void add_EditFileActionListener(ActionListener a)
+	{
+		_editFile.addActionListener(a);
 	}
 	public void addEmailActionlistener(ActionListener a)
 	{
