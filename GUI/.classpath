@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/poi-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/poi-examples-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/poi-excelant-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/poi-ooxml-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/poi-ooxml-schemas-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/poi-scratchpad-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/poi-lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/luisrojas/Documents/Excel-Contact-Book-Addition-Module/javatuples/javatuples-1.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
