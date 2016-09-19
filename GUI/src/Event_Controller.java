@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -10,15 +9,15 @@ import javax.swing.JOptionPane;
 
 public class Event_Controller {
 	
+	org.javatuples.Triplet<Boolean,String,String> report;
+	
 	private Module_Window frame;
 	private File_Handler file;
-	private Error_Handler errorHandler;
 	
 	public Event_Controller()
 	{
 		file = new File_Handler();
-		errorHandler = new Error_Handler();
-		frame = new Module_Window(file,errorHandler);
+		frame = new Module_Window(file);
 		addEvents();
 	}
 	
@@ -26,7 +25,6 @@ public class Event_Controller {
 	private void addEvents(){
 		
 		/* on window close*/
-		
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 	        	file.close(); 
@@ -34,49 +32,40 @@ public class Event_Controller {
 		});
 		
 		frame.addFileButtonActionlistener(new ActionListener(){
-1
 			public void actionPerformed(ActionEvent e) {
-				//frame.hazard.setForeground(Color.red);	
 				JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(null);
-				fc.setDialogTitle("Please choose a file");
+				fc.setDialogTitle("Please slect an EXCEL file");
 				fc.setMultiSelectionEnabled(false);
 				if (fc.showOpenDialog(frame.getFileButton()) == JFileChooser.APPROVE_OPTION) {	 }
 				if(!(fc.getSelectedFile() == null)) { 
-					//frame.hazard.setText(errorHandler.findError((file
-							//.setSourceFile(fc.getSelectedFile().getAbsolutePath()))));
-				}
-				else
-				{
-					//frame.hazard.setText(errorHandler.findError(119));
+					report = file.setSourceFile(fc.getSelectedFile().getAbsolutePath());
+					alertUser(report);
 				}
 			}
 		});
 		
 		
 		frame.addInsertionButtonActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
-
-				
-				if (frame.getEmailTextField().getText().equals("") || frame.getNameTextField().getText().equals("")
-						|| frame.getRelevenceTextField().getText().equals("")) {
-					
-					/*frame.getWarningLabel().setForeground(new Color(228, 230, 0));
-					frame.getWarningLabel().setText(errorHandler.findError(36));*/
-					
+				if (file.isFileNull()) {
+					triggerWarningLabelError("writing to file","no file attached");
 					return;
 				}
-				else if (file.isFileNull()) {
-					frame.hazard.setText(errorHandler.findError(65));
-					return;
+				else if (frame.getEmailTextField().getText().equals("") || 
+						frame.getNameTextField().getText().equals("") || 
+						frame.getRelevanceTextField().getText().equals("")) 
+				{
+			 		triggerWarningLabelError("writing to file","empty text field(s)");
+			 		return;
+				} else {
+				 	report = file.write(frame.getNameTextField().getText(), frame.getRelevanceTextField().getText(), frame.getEmailTextField().getText());
+				 	alertUser(report);
+				 	return;
 				}
-				frame.hazard.setForeground(Color.green);
-				frame.hazard.setText(errorHandler.findError(((file.write
-						(frame.name.getText(), frame.relevance.getText(), frame.email.getText())))));
-				
 			}
 		});
+		
 		
 		
 		
@@ -84,129 +73,138 @@ public class Event_Controller {
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) {
-						try
-						{
-							frame.hazard.setForeground(Color.red);	
-							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame.editNameColumnMenuItem,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
-							String errorOutcome = errorHandler.findError(file.setNameIndex(choice));
-							if (errorOutcome.equals(""))
-							{
-								frame.editNameColumnMenuItem.setText("Edit Name Column.....(" + file.getNameIndex()+")");
-							}
-							frame.hazard.setText(errorOutcome);
+						String newIndex;
+						newIndex = JOptionPane.showInputDialog("Enter desired column number (currently "+file.getNameIndex()+")");
+						
+						try{
+							report = file.setNameIndex(Integer.parseInt(newIndex));
+						} catch (NullPointerException npe){
+							triggerWarningLabelError("changing name index","no value provided");
+							return;
+						} catch (NumberFormatException nfe){
+							triggerWarningLabelError("changing name index","not a number");
+							return;
 						}
-						catch(NullPointerException e2) { } catch (NumberFormatException e3)
-						{
-							frame.hazard.setText("Not a valid Number");	
-						}
+						alertUser(report);
+						// TODO: changing menu item text not always necessary
+						frame.getNameColumnMenuItem().setText("Edit name column... (" + file.getNameIndex() + ")");
+						return;
 					}
-		});
+				}
+		);
 		
 		frame.addEmailColumnMenuItemActionListener( 
 				new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e) {
-						try
-						{
-							frame.hazard.setForeground(Color.red);	
-							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame.editEmailColumnMenuItem,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));				
-							String errorOutcome = errorHandler.findError(file.setEmailIndex(choice));
-							if (errorOutcome.equals(""))
-							{
-								frame.editEmailColumnMenuItem.setText("Edit Email Column.....(" + file.getEmailIndex()+")");
-							}
-							frame.hazard.setText(errorOutcome);
+						String newIndex;
+						newIndex = JOptionPane.showInputDialog("Enter desired column number (currently "+file.getEmailIndex()+")");
+						try{
+							report = file.setEmailIndex(Integer.parseInt(newIndex));
+						} catch (NullPointerException npe){
+							triggerWarningLabelError("changing email index","no value provided");
+							return;
+						} catch (NumberFormatException nfe){
+							triggerWarningLabelError("changing email index","not a number");
+							return;
 						}
-						catch(NullPointerException e2) { 
-							frame.hazard.setText("Unkown Error");
-						} catch (NumberFormatException e3)
-						{
-							frame.hazard.setText("Not a valid Number");	
-						}
-					}
-		});
-		
-		frame.addRelevanceColumnMenuItemActionListener( new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try
-						{
-							frame.hazard.setForeground(Color.red);	
-							int choice = Integer.parseInt(JOptionPane.showInputDialog(frame.editRelevanceColumnMenuItem,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
-							String errorOutcome = errorHandler.findError(file.setRelevanceIndex(choice));
-							if (errorOutcome.equals(""))
-							{
-								frame.editRelevanceColumnMenuItem.setText("Edit Relevance Column.....(" + file.getRelevanceIndex()+")");
-							}
-							frame.hazard.setText(errorOutcome);
-						}
-						catch(NullPointerException e2) { } catch (NumberFormatException e3)
-						{
-							frame.hazard.setText("Not a valid Number");	
-						}
+						alertUser(report);
+						// TODO: changing menu item text not always necessary
+						frame.getEmailColumnMenuItem().setText("Edit email column... (" + file.getEmailIndex() + ")");
+						return;
 					}
 				});
 		
-		frame.addEditFileMenuItemActionListener(new ActionListener(){
-		public void actionPerformed(ActionEvent e)
-		{
-			frame.hazard.setForeground(Color.red);	
-			JFileChooser fc = new JFileChooser();
-			
-			fc.setCurrentDirectory(null);
-			fc.setDialogTitle("Please choose an Excel file");
-			fc.setMultiSelectionEnabled(false);
-			
-			if (fc.showOpenDialog(frame.fileButton) == JFileChooser.APPROVE_OPTION) {	 }
-			if(!(fc.getSelectedFile() == null)) { 
-				frame.hazard.setText(errorHandler.findError((file
-						.setSourceFile(fc.getSelectedFile().getAbsolutePath()))));
-			}
-			else
+		frame.addRelevanceColumnMenuItemActionListener( 
+			new ActionListener()
 			{
-				frame.hazard.setText(errorHandler.findError(119));
-			}
-		}});
-		
-		frame.addEditSheetNumberMenuItemActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				try
-				{
-					frame.hazard.setForeground(Color.red);	
-					int choice = Integer.parseInt(JOptionPane.showInputDialog(frame.editSheetNumberMenuItem,null, "Enter Desired Column Number", JOptionPane.INFORMATION_MESSAGE));
-					String outcome = errorHandler.findError(file.setSheet(choice));
-					if (outcome.equals(""))
-					{
-						frame.editSheetNumberMenuItem.setText("Edit Sheet Number.....(" + file.getSheetIndex()+")");		
+				public void actionPerformed(ActionEvent e) {
+					String newIndex;
+					newIndex = JOptionPane.showInputDialog("Enter desired column number (currently "+file.getRelevanceIndex()+")");
+					try{
+						report = file.setRelevanceIndex(Integer.parseInt(newIndex));
+					} catch (NullPointerException npe){
+						triggerWarningLabelError("changing relevance index","no value provided");
+						return;
+					} catch (NumberFormatException nfe){
+						triggerWarningLabelError("changing relevance index","not a number");
+						return;
 					}
-					frame.hazard.setText(outcome);
-						
-				}
-				catch(NullPointerException e2) { } catch (NumberFormatException e3)
-				{
-					frame.hazard.setText("Not a Valid Input");	
+					alertUser(report);
+					// TODO: changing menu item text not always necessary
+					frame.getRelevanceColumnMenuItem().setText("Edit relevance column... (" + file.getRelevanceIndex() + ")");
+					return;
+				} 
+			});
+		
+		frame.addEditFileMenuItemActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {	
+				JFileChooser fc = new JFileChooser();
+				fc.setCurrentDirectory(null);
+				fc.setDialogTitle("Please select an EXCEL file");
+				fc.setMultiSelectionEnabled(false);
+				if (fc.showOpenDialog(frame.getFileButton()) == JFileChooser.APPROVE_OPTION) {	 }
+				if(!(fc.getSelectedFile() == null)) { 
+					report = file.setSourceFile(fc.getSelectedFile().getAbsolutePath());
+					alertUser(report);
 				}
 			}
 		});
+		
+		frame.addEditSheetNumberMenuItemActionListener(
+			new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e) {
+					String newIndex;
+					newIndex = JOptionPane.showInputDialog("Enter desired column number (currently "+file.getSheetIndex()+")");
+					try{
+						report = file.setSheet(Integer.parseInt(newIndex));
+					} catch (NullPointerException npe){
+						triggerWarningLabelError("changing sheet number","no value provided");
+						return;
+					} catch (NumberFormatException nfe){
+						triggerWarningLabelError("changing sheet number","not a number");
+						return;
+					}
+					alertUser(report);
+					// TODO: changing menu item text not always necessary
+					frame.getSheetNumberMenuItem().setText("Edit sheet column... (" + file.getSheetIndex() + ")");
+					return;
+				}
+			});
 		
 		frame.addAboutMenuItemActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e) {
+					
 					try {
 						java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/lluisrojass/ExcelContactBook"));
-					} catch (IOException | URISyntaxException e1) {
-						
-						frame.hazard.setText("ISSUES ACCESSING THE INTERNET");
+					} catch (IOException e1) {
+						triggerWarningLabelError("reaching 'about' page","unable to access internet browser");
+					} catch  (URISyntaxException e1){
+						triggerWarningLabelError("reaching 'about' page","bad URI link");
 					}
-					
 				}
 			});
 		
 	}
 	
-	public void setHazard() {
+	public void alertUser(org.javatuples.Triplet<Boolean,String,String> report) {
+		if (report.getValue0() == false){
+			System.out.println(report.getValue0());
+			frame.getWarningLabel().setForeground(java.awt.Color.GREEN);
+			frame.getWarningLabel().setText("Success: " + report.getValue2());
+		}
+		else {
+			frame.getWarningLabel().setForeground(java.awt.Color.RED);
+			frame.getWarningLabel().setText("Error " + report.getValue2() + ": " + report.getValue1());
+		}
 		
 		
+	}
+	protected void triggerWarningLabelError(String Action,String errorText) {
+		frame.getWarningLabel().setForeground(java.awt.Color.RED);
+		frame.getWarningLabel().setText("Error " + Action + ": " + errorText);
 	}
 	
 	

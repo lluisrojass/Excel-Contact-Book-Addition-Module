@@ -47,11 +47,11 @@ public class Module_Window extends JFrame {
 	private JButton insertionButton;
 	
 
-	public Module_Window(File_Handler file,Error_Handler errorHandler) {
-		swingInit();
+	public Module_Window(File_Handler file) {
+		swingWindowInit();
 	}
 	
-	private void swingInit()
+	private void swingWindowInit()
 	{
 		/* local label, button and text field fonts */
 		java.awt.Font labelFont = new java.awt.Font("Helvetica Neue",java.awt.Font.PLAIN,20);
@@ -149,14 +149,27 @@ public class Module_Window extends JFrame {
 		setVisible(true);
 	}
 	
+	// GETS
 	protected JButton getFileButton(){
 		return fileButton;
 	}
 	protected JLabel getWarningLabel(){
 		return warningLabel;
 	}
+	protected JMenuItem getEmailColumnMenuItem(){
+		return editEmailColumnMenuItem;
+	}
+	protected JMenuItem getNameColumnMenuItem(){
+		return editNameColumnMenuItem;
+	}
+	protected JMenuItem getRelevanceColumnMenuItem(){
+		return editRelevanceColumnMenuItem;
+	}
+	protected JMenuItem getSheetNumberMenuItem(){
+		return editSheetNumberMenuItem;
+	}
 	
-	/* add action listeners */
+	// ACTION LSITENERS 
 	public void addNameTextFieldActionlistener(ActionListener a) 
 	{
 		nameTextField.addActionListener(a);
@@ -205,7 +218,7 @@ public class Module_Window extends JFrame {
 	public JTextField getEmailTextField(){
 		return emailTextField;
 	}
-	public JTextField getRelevenceTextField(){
+	public JTextField getRelevanceTextField(){
 		return relevanceTextField;
 	}
 	public JTextField getNameTextField(){
