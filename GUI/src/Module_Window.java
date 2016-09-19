@@ -16,10 +16,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-
+/**
+* Class that handles the graphical interface. Class also includes methods to facilitate the outside addition of an 
+* action listener class.  
+*
+* @author  Luis E. Rojas
+* @version 2.0
+* @since   2016-09-19 
+*/
 public class Module_Window extends JFrame {
 	
 	/*Swing Variables*/
+	
 	/*JPanel*/
 	private JPanel panel;
 	/*JLabel*/
@@ -53,10 +61,10 @@ public class Module_Window extends JFrame {
 	
 	private void swingWindowInit()
 	{
-		/* local label, button and text field fonts */
-		java.awt.Font labelFont = new java.awt.Font("Helvetica Neue",java.awt.Font.PLAIN,20);
-		java.awt.Font textFieldFont = new java.awt.Font("Helvetica Neue",java.awt.Font.PLAIN,12);
-		java.awt.Font buttonFont = new java.awt.Font("Helvetica Neue",java.awt.Font.PLAIN,12);
+		/* two font instances used */
+		java.awt.Font largeFont = new java.awt.Font("Helvetica Neue",java.awt.Font.PLAIN,20);
+		java.awt.Font smallFont = new java.awt.Font("Helvetica Neue",java.awt.Font.PLAIN,12);
+		
 		
 		panel = new JPanel();
 		panel.setBackground(java.awt.Color.WHITE);
@@ -96,44 +104,44 @@ public class Module_Window extends JFrame {
 		setJMenuBar(menuBar);
 		
 		nameLabel = new JLabel("Name:");
-		nameLabel.setFont(labelFont);
+		nameLabel.setFont(largeFont);
 		nameLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		panel.add(nameLabel);
 		
 		
 		nameTextField = new JTextField();
 		nameTextField.setPreferredSize(new Dimension(303,20));
-		nameTextField.setFont(textFieldFont);
+		nameTextField.setFont(smallFont);
 		panel.add(nameTextField);
 		
 		relevanceLabel = new JLabel("Relationship:");
-		relevanceLabel.setFont(labelFont);
+		relevanceLabel.setFont(largeFont);
 		relevanceLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		panel.add(relevanceLabel);
 		
 		relevanceTextField = new JTextField();
 		relevanceTextField.setPreferredSize(new Dimension(250,20));
-		relevanceTextField.setFont(textFieldFont);
+		relevanceTextField.setFont(smallFont);
 		panel.add(relevanceTextField);
 		
 		emailLabel = new JLabel("Email:");
-		emailLabel.setFont(labelFont);
+		emailLabel.setFont(largeFont);
 		emailLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		panel.add(emailLabel);
 		
 		emailTextField = new JTextField();
-		emailTextField.setFont(textFieldFont);
+		emailTextField.setFont(smallFont);
 		emailTextField.setPreferredSize(new Dimension(310,20));
 		panel.add(emailTextField);
 		
 		
 		fileButton = new JButton("Choose File");
-		fileButton.setFont(buttonFont);
+		fileButton.setFont(smallFont);
 		fileButton.setPreferredSize(new Dimension(250,30));
 		panel.add(fileButton);
 		
 		insertionButton = new JButton("Apply");
-		insertionButton.setFont(buttonFont);
+		insertionButton.setFont(smallFont);
 		insertionButton.setHorizontalAlignment(SwingConstants.CENTER);
 		insertionButton.setPreferredSize(new Dimension(80,30));
 		panel.add(insertionButton);
@@ -150,7 +158,7 @@ public class Module_Window extends JFrame {
 	}
 	
 	// GETS
-	protected JButton getFileButton(){
+	protected JButton getFileButton() {
 		return fileButton;
 	}
 	protected JLabel getWarningLabel(){
@@ -169,63 +177,61 @@ public class Module_Window extends JFrame {
 		return editSheetNumberMenuItem;
 	}
 	
-	// ACTION LSITENERS 
-	public void addNameTextFieldActionlistener(ActionListener a) 
+	// ACTION LISTENERS 
+	protected void addNameTextFieldActionlistener(ActionListener a) 
 	{
 		nameTextField.addActionListener(a);
 	}
-	public void addEditSheetNumberMenuItemActionListener(ActionListener a)
+	protected void addEditSheetNumberMenuItemActionListener(ActionListener a)
 	{
 		editSheetNumberMenuItem.addActionListener(a);
 	}
-	public void addEditFileMenuItemActionListener(ActionListener a)
+	protected void addEditFileMenuItemActionListener(ActionListener a)
 	{
 		editFileMenuItem.addActionListener(a);
 	}
-	public void addAboutMenuItemActionListener(ActionListener a)
+	protected void addAboutMenuItemActionListener(ActionListener a)
 	{
 		aboutMenuItem.addActionListener(a);
 	}
-	public void addEmailTextFieldActionlistener(ActionListener a)
+	protected void addEmailTextFieldActionlistener(ActionListener a)
 	{
 		emailTextField.addActionListener(a);
 	}
-	public void addFileButtonActionlistener(ActionListener a)
+	protected void addFileButtonActionlistener(ActionListener a)
 	{
 		fileButton.addActionListener(a);
 	}
-	public void addRelevanceTextFieldActionlistener(ActionListener a)
+	protected void addRelevanceTextFieldActionlistener(ActionListener a)
 	{
 		relevanceTextField.addActionListener(a);
 	}
-	public void addInsertionButtonActionListener(ActionListener a)
+	protected void addInsertionButtonActionListener(ActionListener a)
 	{
 		insertionButton.addActionListener(a);
 	}
-	public void addNameColumnMenuItemActionListener(ActionListener a)
+	protected void addNameColumnMenuItemActionListener(ActionListener a)
 	{
 		editNameColumnMenuItem.addActionListener(a);
 	}
-	public void addEmailColumnMenuItemActionListener(ActionListener a)
+	protected void addEmailColumnMenuItemActionListener(ActionListener a)
 	{
 		editEmailColumnMenuItem.addActionListener(a);
 	}
-	public void addRelevanceColumnMenuItemActionListener(ActionListener a)
+	protected void addRelevanceColumnMenuItemActionListener(ActionListener a)
 	{
 		editRelevanceColumnMenuItem.addActionListener(a);
 	}
-	
-	public JTextField getEmailTextField(){
+	protected JTextField getEmailTextField(){
 		return emailTextField;
 	}
-	public JTextField getRelevanceTextField(){
+	protected JTextField getRelevanceTextField(){
 		return relevanceTextField;
 	}
-	public JTextField getNameTextField(){
+	protected JTextField getNameTextField(){
 		return nameTextField;
 	}
-	
-	public void setWarningLabel(java.awt.Color labelColor, String label){
+	protected void setWarningLabel(java.awt.Color labelColor, String label){
 		warningLabel.setForeground(labelColor);
 		warningLabel.setText(label);
 	}

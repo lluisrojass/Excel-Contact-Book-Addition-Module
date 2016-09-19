@@ -6,6 +6,15 @@ import java.net.URISyntaxException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+/**
+* Controller that adds the funcitonality to the graphical component via action listeners 
+* 
+* TODO: Generalize one method to handle all three identical index modifying action listeners. 
+*
+* @author  Luis E. Rojas
+* @version 2.0
+* @since   2016-09-19 
+*/
 
 public class Event_Controller {
 	
@@ -48,17 +57,19 @@ public class Event_Controller {
 		
 		frame.addInsertionButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/* is file null */
 				if (file.isFileNull()) {
 					triggerWarningLabelError("writing to file","no file attached");
 					return;
 				}
+				/* are text fields empty */
 				else if (frame.getEmailTextField().getText().equals("") || 
 						frame.getNameTextField().getText().equals("") || 
 						frame.getRelevanceTextField().getText().equals("")) 
 				{
 			 		triggerWarningLabelError("writing to file","empty text field(s)");
 			 		return;
-				} else {
+				} else /* write to file */{
 				 	report = file.write(frame.getNameTextField().getText(), frame.getRelevanceTextField().getText(), frame.getEmailTextField().getText());
 				 	alertUser(report);
 				 	return;

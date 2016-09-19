@@ -18,11 +18,25 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
+/**
+* Class that handles the file interactions. Several methods request a return a value, but ones that just request an action
+* return a report of type Triplet<Boolean, String, String> detailing the outcome of the interaction.
+* Boolean: Whether an error was encountered
+* String (first): Details of encountered error, null otherwise.
+* String (second): Action performed by the method.
+* 
+* TODO: find more data efficient way to return report of interaction, probably with self made method.
+*
+* @author  Luis E. Rojas
+* @version 2.0
+* @since   2016-09-19 
+*/
 public class File_Handler{
 	
-	private enum WorkbookType { 
-		/*. xlsx */EXCELCURRENT, /* .xls */EXCELPRE2004, /* unkown */ UNKNOWN
+	private enum WORKBOOKTYPE { 
+		/*. xlsx */EXCELCURRENT, 
+		/* .xls */EXCELPRE2004, 
+		/* unkown */ UNKNOWN
 	}
 	
 	/*Excel File Variables*/
@@ -30,7 +44,7 @@ public class File_Handler{
 	private File currFile;
 	private Sheet currSheet;
 	/* Type of Workbook */
-	private WorkbookType wbType; 
+	private WORKBOOKTYPE wbType; 
 	/* Index for iterating sections */
     private int emailIndex;
 	private int relevanceIndex;
@@ -43,18 +57,10 @@ public class File_Handler{
 	
 	public File_Handler()
 	{ 
-		wbType = WorkbookType.UNKNOWN;
-		/* starting indexes */
-		nameIndex = 0;
-		relevanceIndex = 1;
-		emailIndex = 2;
-	}
-		
-	public File_Handler(String pathname) 
-	{
-		setSourceFile(pathname);
-		wbType = WorkbookType.UNKNOWN;
-		/* starting indexes */
+		wbType = WORKBOOKTYPE.UNKNOWN;
+		fis = null;
+		fos = null;
+		/* default indexes */
 		nameIndex = 0;
 		relevanceIndex = 1;
 		emailIndex = 2;
@@ -64,7 +70,7 @@ public class File_Handler{
 	{
 		Triplet<Boolean,String,String> out = new Triplet<Boolean,String,String>(false,null,"closing file");
 		try {
-			if (!(wbType == WorkbookType.UNKNOWN)) {
+			if (!(wbType == WORKBOOKTYPE.UNKNOWN)) {
 				fis.close();
 				fos.close();
 				workbook.close();
@@ -111,11 +117,11 @@ public class File_Handler{
 			switch(extension) {
 				case "xlsx":	
 					workbook = new XSSFWorkbook(fis);
-					wbType = WorkbookType.EXCELCURRENT;
+					wbType = WORKBOOKTYPE.EXCELCURRENT;
 					break;
 				case ".xls":
 					workbook = new HSSFWorkbook(fis); 
-					wbType = WorkbookType.EXCELPRE2004;
+					wbType = WORKBOOKTYPE.EXCELPRE2004;
 					break;
 				default:
 					/* throw exception to show error*/
@@ -131,7 +137,7 @@ public class File_Handler{
 	
 	
 	public boolean isFileNull() {
-		return wbType == WorkbookType.UNKNOWN;
+		return wbType == WORKBOOKTYPE.UNKNOWN;
 	}
 	
 	public Triplet<Boolean,String,String> setNameIndex(int index)
@@ -205,7 +211,7 @@ public class File_Handler{
 	{
 		Triplet<Boolean,String,String> out = new Triplet<Boolean,String,String>(false,null,"changing current sheet");
 		
-		if (!(wbType == WorkbookType.UNKNOWN)) {
+		if (!(wbType == WORKBOOKTYPE.UNKNOWN)) {
 			currSheetIndex = index;
 			currSheet = workbook.getSheetAt(index);
 		}else{
